@@ -1,1 +1,1 @@
-Startup success prediction model built with a GUI
+Startup success prediction model transformed into a GUI
