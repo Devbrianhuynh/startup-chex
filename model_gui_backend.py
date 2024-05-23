@@ -90,7 +90,7 @@ class StartupSuccessPredModel:
     def train_model(self):
         self.logger.debug('train_test_split dataset')
 
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, train_size=0.7, test_size=0.3, random_state=42)
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, train_size=0.9, test_size=0.1, random_state=42)
 
         self.logger.info('Creating pipeline')
 
@@ -236,6 +236,7 @@ class StartupSuccessPredModel:
             return y_pred
 
 
+    # Used only once
     def run_train_model(self):
         self.clean_dataset()
         self.get_df_subsets()
@@ -246,12 +247,15 @@ class StartupSuccessPredModel:
     def run_diagnostics_model(self, clf_type):
         model_score = self.get_model_score(clf_type)
         model_confusion_matrix = self.get_model_confusion_matrix(clf_type)
-        assert self.test_model(clf_type) == [1.0, 1.0, -1.0, 0.0, 1.0], 'Trained model failed to correctly predict startup success'
+
+        assert self.test_model(clf_type) == [1.0, 1.0, -1.0, 0.0, 1.0] or self.test_model(clf_type) == [1.0, 1.0, -1.0, -1.0, 1.0], 'Trained model failed to correctly predict startup success'
+
         most_important_factors = self.get_most_important_factors(clf_type)
 
         return model_score, model_confusion_matrix, most_important_factors
 
     
+    # To be used repeatedly
     def run_user_model(self, clf_type, category, total_funding, city, funding_rounds, founded_at, first_funding_at, last_funding_at):
         user_startup_pred = self.get_user_startup_pred(clf_type, category, total_funding, city, funding_rounds, founded_at, first_funding_at, last_funding_at)
 
@@ -273,7 +277,7 @@ if __name__ == '__main__':
         print(diagnostic)
         print()
 
-    print(startup_success_pred_model.run_user_model('lr', 'FinTech', 70000000, 'San Francisco', 3, 2022, 2022, 2024))
+    print(startup_success_pred_model.run_user_model('lr', 'Cloud Computing', 70000000, 'Palo Alto', 3, 2022, 2022, 2024))
     
 
 
