@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>StartupChex</title>
+</head>
+<body>
+    <h1>StartupChex</h1>
+    <p>The startup success predictor</p>
+    <p>Trained on a huge dataset with 40,000+ rows, the ML model peaked at 80%+ accuracy (higher accuracies coming soon). Enter your startup's industry, the year in which it was founded, the city it is based in, and the year of the first and last time in which your startup was funded to get an accurate result of your startup's future!</p>
+    <footer>StartupChex may make mistakes. False positives and negatives may arise. Please don't rely on its predictions entirely</footer>
+
+    <form method="POST" action="/get_user_startup_info">
+        <label>Enter your startup data:</label>
+        <input type="text" name="clf_type" class="startup_data" required>
+        <input type="text" name="category" class="startup_data" required>
+        <input type="number" name="total_funding" min="1" class="startup_data" required>
+        <input type="text" name="city" class="startup_data" required>
+        <input type="number" name="funding_rounds" min="0" class="startup_data" required>
+        <input type="text" name="founded_at" class="startup_data" required>
+        <input type="text" name="first_funding_at" class="startup_data" required>
+        <input type="text" name="last_funding_at" class="startup_data" required>
+        <button type="submit">Submit</button>
+    </form>
+    
+    <p>{{ fate_of_startup }}</p>
+    <p>{{ accuracy_score }}</p>
+    <p>{{ confusion_matrix }}</p>
+    <p>{{ most_important_factors }}</p>
+</body>
+</html>
