@@ -1,0 +1,86 @@
+#startup-pred-model-info {
+    padding: 50px 7vw;
+    font-family: helvetica;
+}
+
+#title {
+    color: cadetblue;
+    font-size: 5vw;
+}
+
+#slogan {
+    font-weight: bold;
+}
+
+#experiment-description {
+    width: 50vw
+}
+
+#slogan, #experiment-description { 
+    font-size: 2vw;
+    word-spacing: 1px;
+}
+
+#disclaimer {
+    font-size: 1vw;
+    font-weight: bold;
+    width: 50vw;
+}
+
+/* Make sure margin is 10px in media 550px */
+#startup-data {
+    padding: 30px 7vw;
+    font-family: helvetica;
+    margin: 30px;
+    border: 3px solid black;
+    background: cadetblue;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Make sure font-size is 3-5 in media 550px */
+form label {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    font-size: 2vw;
+}
+
+form input, form select {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+/* Make sure font-size is 5-7 in media 550px */
+#form-title {
+    font-size: 2.5vw;
+    font-weight: bold;
+}
+
+
+@media (max-width: 550px) {
+    #startup-pred-model-info {
+        padding: 10px 10px;
+    }
+
+    #title {
+        font-size: 10vw;
+    }
+
+    #experiment-description {
+        width: 80vw;
+    }
+
+    #slogan, #experiment-description {
+        font-size: 3.5vw;
+    }
+
+    #disclaimer {
+        font-size: 2.5vw;
+        width: 80vw;
+    }
+}
