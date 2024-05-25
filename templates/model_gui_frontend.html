@@ -3,31 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- For development -->
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <!-- For Flask -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <title>StartupChex</title>
 </head>
 <body>
-    <h1>StartupChex</h1>
-    <p>The startup success predictor</p>
-    <p>Trained on a huge dataset with 40,000+ rows, the ML model peaked at 80%+ accuracy (higher accuracies coming soon). Enter your startup's industry, the year in which it was founded, the city it is based in, and the year of the first and last time in which your startup was funded to get an accurate result of your startup's future!</p>
-    <footer>StartupChex may make mistakes. False positives and negatives may arise. Please don't rely on its predictions entirely</footer>
+    <div id="startup-pred-model-info">
+        <h1 id="title">StartupChex</h1>
+        <p id="slogan">The startup success predictor</p>
+        <p id="experiment-description">Trained on a huge dataset with 60,000+ rows, our ML model peaked at 80%+ accuracy (higher accuracies coming soon). Enter your startup's industry, the year in which it was founded, the city it is based in, and the year of the first and last time in which your startup was funded to get an accurate result of your startup's future!</p>
+        <footer id="disclaimer">StartupChex may make mistakes. False positives and negatives may arise. Please don't rely on its predictions entirely</footer>
+    </div>
 
-    <form method="POST" action="/get_user_startup_info">
-        <label>Enter your startup data:</label>
-        <input type="text" name="clf_type" class="startup_data" required>
-        <input type="text" name="category" class="startup_data" required>
-        <input type="number" name="total_funding" min="1" class="startup_data" required>
-        <input type="text" name="city" class="startup_data" required>
-        <input type="number" name="funding_rounds" min="0" class="startup_data" required>
-        <input type="text" name="founded_at" class="startup_data" required>
-        <input type="text" name="first_funding_at" class="startup_data" required>
-        <input type="text" name="last_funding_at" class="startup_data" required>
-        <button type="submit">Submit</button>
-    </form>
+    <div id="startup-data">
+        <form method="POST" action="/get_user_startup_info">
+            <p id="form-title">Enter your startup's data:</p>
+
+            <label for="clf_type">Should we use Logistic Regression or a Decision Tree?</label>
+            <label class="radio-label">
+                <input type="radio" name="clf_type" class="radio-input" value="lr" required> Logistic Regression
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="clf_type" class="radio-input" value="dt" required> Decision Tree
+            </label>
+
+            <label for="category">What industry is your startup in?</label>
+            <select name="category" class="box-input" required>
+                <option value="" disabled selected>Select an industry</option>
+
+                {% for industry in industries_list %}
+                    <option value="{{ industry }}">{{ industry }}</option>
+                {% endfor %}
+
+            </select>
+
+            <label for="total_funding">How many $ in funding has your startup received?</label>
+            <input type="number" name="total_funding" min="0" placeholder="Enter $ amount" class="box-input" required>
+
+            <label for="city">What city is your startup located in?</label>
+            <input type="text" name="city" class="box-input" placeholder="Enter city" required>
+            
+            <label for="funding_rounds">How many rounds of funding has your startup gone through?</label>
+            <select name="funding_rounds" class="box-input" required>
+                <option value="" disabled selected>Select total funding rounds</option>
+
+                {% for rounds in funding_rounds_options %}                
+                    <option value="{{ rounds }}">{{ rounds }}</option>
+                {% endfor %}
+
+            </select>
+
+            <label for="founded_at">What year was your startup founded?</label>
+            <select name="founded_at" class="box-input" required>
+                <option value="" disabled selected>Select founding year</option>
+
+                {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+
+            </select>
+
+            <label for="first_funding_at">When did your startup receive its first funding round?</label>
+            <select name="first_funding_at" class="box-input" required>
+                <option value="" disabled selected>Select first funding year</option>
+
+                {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+
+            </select>
+
+            <label for="last_funding_at">When did your startup receive its lastest funding round?</label>
+            <select name="last_funding_at" class="box-input" required>
+                <option value="" disabled selected>Select latest funding year</option>
+
+                {% for year in years %}
+                    <option value="{{ year }}">{{ year }}</option>
+                {% endfor %}
+
+            </select>
+
+            <button type="submit" id="submit">Find your startup's fate!</button>
+        </form>
+    </div>
     
-    <p>{{ fate_of_startup }}</p>
-    <p>{{ accuracy_score }}</p>
-    <p>{{ confusion_matrix }}</p>
-    <p>{{ most_important_factors }}</p>
+    <div id="startup-pred">
+        {% if fate_of_startup is defined %}
+        <p id="fate">{{ fate_of_startup }}</p>
+
+        <div id="startup-specs">
+            <p id="startup-specs-title">Your startup company:</p>
+            <p><span class="features">Industry</span>: {{ category }}</p>
+            <p><span class="features">Total Funding ($)</span>: {{ total_funding }}</p>
+            <p><span class="features">City</span>: {{ city }}</p>
+            <p><span class="features">Funding Rounds</span>: {{ funding_rounds }}</p>
+            <p><span class="features">Founded At</span>: {{ founded_at }}</p>
+            <p><span class="features">First Funding At</span>: {{ first_funding_at }}</p>
+            <p><span class="features">Last Funding At</span>: {{ last_funding_at }}</p>
+        </div>
+        
+        <div id="other">
+            <p id="other-info">Other performance metrics of our ML model:</p>
+            
+            <p id="score-title">ML model accuracy:</p>
+            <p id="score">{{ accuracy_score }}</p>
+
+
+            <p id="confusion-matrix-title">Confusion/Error Matrix:</p>
+            <table id="confusion-matrix">
+                <tr>
+                    <th id="blank">StartupChex</th>
+                    <th class="cross-col">Predicted Success</th>
+                    <th class="cross-col">Predicted Unsuccess</th>
+                    <th class="cross-col">Predicted Operating</th>
+                </tr>
+                <tr>
+                    <th class="cross-col">Actual Success</th>
+                    <td class="cross-1">{{ confusion_matrix.iloc[0][0] }}</td>
+                    <td class="cross-2">{{ confusion_matrix.iloc[0][1] }}</td>
+                    <td class="cross-3">{{ confusion_matrix.iloc[0][2] }}</td>
+                </tr>
+                <tr>
+                    <th class="cross-col">Actual Unsuccess</th>
+                    <td class="cross-1">{{ confusion_matrix.iloc[1][0] }}</td>
+                    <td class="cross-2">{{ confusion_matrix.iloc[1][1] }}</td>
+                    <td class="cross-3">{{ confusion_matrix.iloc[1][2] }}</td>
+                </tr>
+                <tr>
+                    <th class="cross-col">Actual Operating</th>
+                    <td class="cross-1">{{ confusion_matrix.iloc[2][0] }}</td>
+                    <td class="cross-2">{{ confusion_matrix.iloc[2][1] }}</td>
+                    <td class="cross-3">{{ confusion_matrix.iloc[2][2] }}</td>
+                </tr>
+            </table>
+
+            <p id="important-factors-title">Most important factors that lead to startup success:</p>
+            <table id="important-factors">
+                <tr>
+                    <th class="factor-col">Reason of Success</th>
+                    <th class="factor-col">% of Contribution to Success</th>
+                </tr>
+                {% for factor in most_important_factors %}
+                    <tr>
+                        <td class="factor-1">{{ factor[0] }}</td>
+                        <td class="factor-2">{{ factor[1] }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+            {% endif %}
+        </div>
+    </div>
+
+    <div id="afterword">
+        <p>Built and tested by Brian Huynh in a Philz Coffee in San Francisco, California</p>
+        <p>Sat. May 25 15:46:43</p>
+        <p>25/05/2024</p>
+    </div>
 </body>
 </html>

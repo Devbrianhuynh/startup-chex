@@ -17,7 +17,7 @@
 }
 
 #slogan, #experiment-description { 
-    font-size: 2vw;
+    font-size: 1.7vw;
     word-spacing: 1px;
 }
 
@@ -27,11 +27,10 @@
     width: 50vw;
 }
 
-/* Make sure margin is 10px in media 550px */
 #startup-data {
     padding: 30px 7vw;
     font-family: helvetica;
-    margin: 30px;
+    margin: 30px 7vw;
     border: 3px solid black;
     background: cadetblue;
 }
@@ -40,14 +39,15 @@ form {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    font-weight: bold;
+    color: white;
 }
 
-/* Make sure font-size is 3-5 in media 550px */
 form label {
     margin-top: 10px;
     display: flex;
     align-items: center;
-    font-size: 2vw;
+    font-size: 1.5vw;
 }
 
 form input, form select {
@@ -55,16 +55,242 @@ form input, form select {
     margin-bottom: 10px;
 }
 
-/* Make sure font-size is 5-7 in media 550px */
+form select {
+    cursor: pointer;
+}
+
+form input:hover, form select:hover {
+    transform: scale(1.2)
+}
+
 #form-title {
-    font-size: 2.5vw;
+    font-size: 2.7vw;
+}
+
+.radio-label, .radio-input {
+    font-weight: lighter;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.radio-label:hover {
+    transform: scale(1.2)
+}
+
+.radio-input {
+    accent-color: black;
+}
+
+.box-input {
+    color: grey;
+    border-radius: 10px;
+    border: 2px solid black;
+    padding: 2px 5px;
+    outline: none;
+}
+
+#submit {
+    margin-top: 45px;
+    border-radius: 10px;
+    border: 3px solid black;
+    accent-color: black;
+    padding: 10px 50px;
+    background-color: white;
+    color: cadetblue;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#submit:hover {
+    background-color: black;
+}
+
+#startup-pred {
+    margin: 100px 7vw;
+}
+
+#fate {
+    font-family: helvetica;
+    font-weight: bold;
+    font-size: 2.7vw;
+    margin-top: 77px;
+}
+
+#startup-specs {
+    background: cadetblue;
+    border: 3px solid black;
+    display: inline-block;
+    padding: 10px 30px;
+    font-family: helvetica;
+    font-size: 1.5vw;
+    color: white;
+    margin-top: 30px;
+}
+
+#startup-specs-title {
+    font-weight: bold;
+    font-size: 1.8vw;
+}
+
+#startup-specs p:hover {
+    transform: scale(1.1);
+}
+
+.features {
     font-weight: bold;
 }
 
+#other {
+    border: 5px solid cadetblue;
+    margin-top: 100px;
+    padding: 20px 50px;
+}
 
-@media (max-width: 550px) {
+#other-info {
+    font-family: helvetica;
+    margin-bottom: 30px;
+    font-weight: bolder;
+    font-size: 2.2vw;
+}
+
+#score-title {
+    font-family: helvetica;
+    margin-bottom: 7px;
+    font-weight: bolder;
+    font-size: 1.8vw;
+    margin-top: 50px;
+}
+
+#score {
+    font-family: helvetica;
+    font-weight: bolder;
+    font-size: 1.5vw;
+    margin: 0px;
+    text-decoration: underline;
+}
+
+#confusion-matrix-title {
+    font-family: helvetica;
+    margin-top: 50px;
+    margin-bottom: 7px;
+    font-weight: bold;
+    font-size: 1.8vw;
+}
+
+#confusion-matrix {
+    font-family: helvetica;
+    font-size: 1.5vw;
+    font-weight: bold;
+    color: white;
+    border: 5px solid cadetblue;
+}
+
+#blank {
+    background: white;
+    font-weight: bold;
+    font-family: helvetica;
+    color: cadetblue
+}
+
+.cross-col {
+    background: cadetblue;
+    padding: 5px 7px;
+}
+
+.cross-col:hover {
+    background: cornflowerblue;
+}
+
+.cross-1 {
+    background: green;
+    padding: 5px 7px;
+    text-align: center;
+}
+
+.cross-1:hover {
+    background: greenyellow
+}
+
+.cross-2 {
+    background: #c21807;
+    padding: 5px 7px;
+    text-align: center;
+}
+
+.cross-2:hover {
+    background: red
+}
+
+.cross-3 {
+    background: #6488ea;
+    padding: 5px 7px;
+    text-align: center;
+}
+
+.cross-3:hover {
+    background: blue;
+}
+
+#important-factors-title {
+    margin-bottom: 7px;
+    margin-top: 50px;
+    font-size: 1.8vw;
+    font-family: helvetica;
+    font-weight: bold;
+}
+
+#important-factors {
+    font-family: helvetica;
+    font-size: 1.5vw;
+    font-weight: bold;
+    border: 5px solid cadetblue;
+    color: white;
+}
+
+.factor-col {
+    background: cadetblue;
+    padding: 7px 10px;
+}
+
+.factor-col:hover {
+    background: cornflowerblue;
+}
+
+.factor-1 {
+    background: green;
+    padding: 7px 10px;
+    text-align: center;
+}
+
+.factor-1:hover {
+    background: greenyellow;
+}
+
+.factor-2 {
+    background: #6488ea;
+    padding: 12px 10px;
+    text-align: center;
+}
+
+.factor-2:hover {
+    background: blue;
+}
+
+#afterword {
+    background: cadetblue;
+    font-family: helvetica;
+    font-size: 1.8vw;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 150px 50px;
+    margin-top: 150px;
+}
+
+
+@media (max-width: 600px) {
     #startup-pred-model-info {
-        padding: 10px 10px;
+        padding: 10px;
     }
 
     #title {
@@ -76,11 +302,75 @@ form input, form select {
     }
 
     #slogan, #experiment-description {
-        font-size: 3.5vw;
+        font-size: 4vw;
     }
 
     #disclaimer {
         font-size: 2.5vw;
         width: 80vw;
+    }
+    
+
+    #startup-data {
+        margin: 10px;
+        margin-top: 10px;
+    }
+
+    form label {
+        font-size: 3vw;
+        margin-top: 20px;
+    }
+
+    #form-title {
+        font-size: 5.5vw;
+    }
+
+    
+    #startup-pred {
+        margin: 10px;
+    }
+
+    #fate {
+        font-size: 4vw;
+    }
+
+    #other-info {
+        font-size: 4.5vw;
+    }
+
+    #score-title {
+        font-size: 3.5vw;
+    }
+
+    #score {
+        font-size: 3vw;
+    }
+
+    #confusion-matrix-title {
+        font-size: 3.5vw;
+    }
+
+    #confusion-matrix {
+        font-size: 3vw;
+    }
+
+    #important-factors-title {
+        font-size: 3.5vw;
+    }
+
+    #important-factors {
+        font-size: 3vw;
+    }
+
+    #startup-specs {
+        font-size: 3vw;
+    }
+
+    #statup-specs-title {
+        font-size: 3.5vw;
+    }
+
+    #afterword {
+        font-size: 3.5vw;
     }
 }

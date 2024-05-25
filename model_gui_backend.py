@@ -13,6 +13,8 @@ from sklearn.metrics import accuracy_score, confusion_matrix
 import numpy as np
 import pandas as pd
 import logging
+import os
+from datetime import datetime
 
 from dataset import load_dataset
 
@@ -90,7 +92,7 @@ class StartupSuccessPredModel:
     def train_model(self):
         self.logger.debug('train_test_split dataset')
 
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, train_size=0.9, test_size=0.1, random_state=42)
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, train_size=0.7, test_size=0.3, random_state=42)
 
         self.logger.info('Creating pipeline')
 
@@ -208,6 +210,13 @@ class StartupSuccessPredModel:
             most_important_features = importances_features[:3]
             return most_important_features
         
+    
+    def get_industries(self):
+        industries = np.array(self.X['category_list'].unique()).astype(str)
+        industries = np.sort(industries).tolist()[:-1] # Remove the 'nan' value 
+
+        return industries
+        
 
     # Testing purposes only and not to be used by the GUI
     def test_model(self, clf_type):
@@ -227,13 +236,34 @@ class StartupSuccessPredModel:
 
         if clf_type == 'lr':
             self.logger.info('predict() and fetch results of the startup\'s status')
+
             y_pred = self.pipe_lr.predict(startup_info).tolist()
+            self.logger.debug(y_pred)
+
             return y_pred
         
         elif clf_type == 'dt':
             self.logger.info('predict() and fetch results of the startup\'s status')
+
             y_pred = self.pipe_dt.predict(startup_info).tolist()
+            self.logger.debug(y_pred)
+
             return y_pred
+        
+    
+    def clear_log_file(self, log_file_path):
+        if os.path.exists(log_file_path):
+            with open(log_file_path, "r+") as file:
+                file.truncate()
+
+    
+    # Return params compatible with model inference functions
+    def get_necessary_choices(self):
+        industries_list = self.get_industries()
+        funding_rounds = range(0, 20)
+        years = range(datetime.now().year - 10, datetime.now().year + 1)
+
+        return industries_list, funding_rounds, years
 
 
     # Used only once
