@@ -287,6 +287,14 @@ form input:hover, form select:hover {
     margin-top: 150px;
 }
 
+#afterword-a {
+    color: white;
+}
+
+#afterword-a:hover {
+    color: black;
+}
+
 
 @media (max-width: 600px) {
     #startup-pred-model-info {

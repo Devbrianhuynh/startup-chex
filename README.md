@@ -49,11 +49,17 @@ $ pip install ir requirements.txt
 
 ## Credits  
 This experiment uses the following packages and frameworks:
-- Scikit-Learn
-- Pandas
-- NumPy
-- Python
-- Flask
+- [Scikit-Learn](https://scikit-learn.org/)
+- [Pandas](https://pandas.pydata.org/)
+- [NumPy](https://numpy.org/)
+- [Python](https://www.python.org/)
+- [Flask](https://flask.palletsprojects.com/en/3.0.x/)
+
+![scikit-learn](https://img.shields.io/badge/scikit--learn-%23F7931E.svg?style=for-the-badge&logo=scikit-learn&logoColor=white)
+![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=for-the-badge&logo=pandas&logoColor=white)
+![NumPy](https://img.shields.io/badge/numpy-%23013243.svg?style=for-the-badge&logo=numpy&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 
 ## License
 This project is licensed under the MIT License and was originally built by Devbrianhuynh
