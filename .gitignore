@@ -1,3 +1,5 @@
-ml_model_env/
+startup_chex_env/
 __pycache__/
 *.log
+*.pyc
+*.DS_Store
